@@ -100,7 +100,7 @@ a:hover {
 .jumbotron {
   background-image: url("../assets/Mt-Robson-Topo.JPG");
   text-align: center;
-  color: #696969;
+  color: #090909;
   padding: 2%;
 }
 
@@ -125,7 +125,7 @@ body {
 }
 footer {
   text-align: right;
-  background-color: #696969
+  background-color: #090909
   color: #fff
   padding: 20px;
   padding-bottom: 20px;

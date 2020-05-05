@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Michael Hasinoff</title>
+		<!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+
+		<!--put your Bootstrap stylesheet links below this comment and above style.css-->
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<!--[if IE<9]>
+			<link rel="stylesheet" href="css/style.ie.css">
+		<![endif]-->
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top"> <!-- Creates the navbar -->
+		  <div class="container">
+		    <div class="navbar-header"> <!-- Creates the navbar header -->
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		        <span class="sr-only">Toggle navigation</span> <!-- Used for screen readers for accessibility -->
+						<span class="glyphicon glyphicon-menu-hamburger"></span><span class="menu"> Menu</span>
+		      </button> <!-- Hamburger button for smaller devices -->
+					<a class="navbar-brand" href="../index.html">Michael Hasinoff</a> <!-- Your website brand name -->
+		    </div>
+
+		    <div id="navbar" class="collapse navbar-collapse"> <!-- Links to include in navbar -->
+		     <ul class="nav navbar-nav navbar-right">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../portfolio.html">Portfolio</a></li>
+            <li><a href="../resume.html">Resume</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+            
+          </ul>
+		    </div> <!-- end .navbar-collapse -->
+		  </div> <!-- end .container -->
+		</nav> <!-- end navigation bar -->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+					<h2 class="portfolio-title">Canada National Parks</h2>
+					<p class="portfolio-description">
+						This map looks at attendance in Canadian national parks. It was an exercise that involved the use of ArcGIS, shapefiles from various sources, and understanding of the proper use of proportional symbols and inset maps.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 portfolio-image">
+					<a href="../assets/Canadian_national_Parks_Attendance.png"><img src="../assets/Canadian_national_Parks_Attendance.png" alt="Can National Parks" class="center-block img-responsive" width = 500/></a>
+				</div>
+			</div>
+		</div>
+
+		<!--put your external script links here-->
+		<script type="text/javascript" src="../lib/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="../lib/bootstrap.min.js"></script>
+	</body>
+
+	<hr>
+
+	<footer>
+			<a href="https://github.com/mhasinoff" target="_blank"><img class="tiny" alt="GitHub" src="../assets/github_40px.png"></a>
+
+			<a href="https://www.linkedin.com" target="_blank"><img class="tiny" alt="LinkedIn" src="../assets/linkedin_40px.png"></a>
+
+			<a href="https://www.facebook.com/" target="_blank"><img class="tiny" alt="Facebook" src="../assets/facebook_40px.png"></a>
+
+			<a href="https://www.twitter.com/CommanderHaz" target="_blank"><img class="tiny" alt="Twitter" src="../assets/twitter_40px.png"></a>
+		</footer>
+</html>

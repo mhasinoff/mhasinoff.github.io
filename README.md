@@ -1,2 +1,2 @@
-# mhasinoff.github.io
-My personal website
+# Michael-Hasinoff-Mountain-Time-Mapping
+ Personal Website

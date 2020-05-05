@@ -1,0 +1,147 @@
+ @font-face {
+
+    font-family: 'PT-Sans';
+    src: url('fonts/PTS55F-webfont.eot');
+    src: url('fonts/PTS55F-webfont.woff') format('woff'),
+         url('fonts/PTS55F-webfont.ttf') format('truetype'),
+          }
+        /* example:
+@font-face {
+    font-family: 'On-AirInline';
+    src: url('fonts/on-air-inline-webfont.eot');
+    src: url('fonts/on-air-inline-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/on-air-inline-webfont.woff') format('woff'),
+         url('fonts/on-air-inline-webfont.ttf') format('truetype'),
+         url('fonts/on-air-inline-webfont.svg#On-AirInline') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
+
+
+/***** NAVBAR *****/
+.navbar-default {
+  background-color: #9c5953;
+  border-radius: 0;
+  background-image: none;
+}
+
+/* Navbar title */
+.navbar-default .navbar-brand {
+  color: #090909;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Navbar hover effects */
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ebd122;
+}
+
+/* Navbar links */
+.navbar-default .navbar-nav > li > a {
+  color: #D3D3D3;
+  font-size: 16px;
+}
+
+/* Navbar collapsed styles */
+.navbar-header .navbar-toggle {
+  color: #696969;
+}
+
+.navbar-header .navbar-toggle:hover,
+.navbar-header .navbar-toggle:focus {
+  background-color: #ebd122;
+  color: #242424;
+}
+
+
+
+
+/*** Portfolio pieces ***/
+.portfolio-thumbnail {
+  background-color: #fff;
+  border-color: #9c5953;
+  border-width: 3px;
+  width: 95%;
+}
+
+.portfolio-thumbnail:hover {
+  border-color: #ebd122;
+}
+
+.portfolio-title {
+  font-weight: bold;
+}
+
+.portfolio-description {
+}
+
+.portfolio-image {
+}
+
+#about-world {
+  max-height: 200px;
+}
+
+.resume h3 {
+  font-weight: bold;
+}
+
+hr {
+  border-color: white;
+  border-width: 2px;
+}
+
+p {
+  font-size: 20px;
+}
+
+a {
+  color: #9c5953;
+}
+
+a:hover {
+  color: #ebd122;
+}
+
+.jumbotron {
+  background-image: url("../assets/Mt-Robson-Topo.JPG");
+  text-align: center;
+  color: #696969;
+  padding: 2%;
+}
+
+.jumbotron h2 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+body {
+  
+  padding-top: 50px;
+ /* font-family: 'Alegreya Sans SC', serif;*/
+  background-color: #385273;
+  color: #242424;
+  position: relative;
+  padding-bottom: 58px; /*this # should be equal to height of footer? or padding around footer */
+  min-height: 100vh;
+  /*background-image: url("../assets/IMG_4681.JPG");*/
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+footer {
+  text-align: right;
+  background-color: #696969
+  color: #fff
+  padding: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

@@ -44,15 +44,28 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-					<h2 class="portfolio-title">Wild West Bike Race</h2>
+					<h2 class="portfolio-title">WI Department of Corrections Regional Atlas</h2>
+					<p><strong>Unfortunately, due to privacy issues, I am unable to share this atlas.</strong> That said, a description of the atlas we created is below.
+					</p><br>
 					<p class="portfolio-description">
-						This graphic was a class project that involved the use of several cartographic skills in order to make a map to illustrate a fictional bike race route through mountainous and flat terrain. A route, in a vector format was created and exported from <strong>My Google Maps</strong>. Using ArcGIS, raster data was used for a basemap, surface cover and in the form of a digital elevation models to eventually give the appearance of 3D terrain features. The terrain, DEM and land cover raster files were merged into one graphic using Photoshop, which was then exported to Adobe Illustrator for the addition of remaining map elements. 
-					</p>
+						 As one of two GIS Interns and one permanent staff member of the WI State Cartographer's Office (SCO), this atlas was produced for the WI Department of Corrections (DOC), Division of Community Corrections (DCC) to help visualize the locations of approximately 50,000 Wisconsin-based DCC clients. The atlas also includes the locations of key DCC or county facilities commonly utilized by these clients. The goal of this mapping exercise was to ensure facilities are appropriately located throughout the state to meet the diverse needs of DCC clients.				 
+					</p><br>
+					<p class="portfolio-description">
+						Client locations were geocoded using ArcGIS Pro software to place each client on a map, as were DCC facilities and county jails for inclusion in the atlas.	To map and visualize client locations, we used hexagonal binning to aggregate and summarize client point data into equal-sized adjacent hexagons. The first stage of this approach superimposed a hexagonal (“honeycomb”) grid pattern over an area of interest. A client count for each hexagon was then made (see below). Lastly, the hexagon counts were classified into equal-interval classes and color-coded for the map. Hexagon sizes were varied, depending upon the region of Wisconsin that was being covered. Smaller and more populated areas used smaller hexagons to map the client locations at a finer level of detail.			 
+				   </p><br>
+				   <p>This atlas presented several challenges including the needed use of different scales for different regions (small regions with large client numbers vs. large regions with small client numbers) and crowded labels. So that it could be easily updated with new data in future editions, all 36 maps (overview, regional and urban) were made exclusively with ArcGIS Pro and exported to a Word document. We were ableo to make the atlas esthetically pleasing to the eyem despite not using graphic design software, such as Adobe Illustrator. This was a deliberate decision as all future updates would have required a cumbersome and time-consuming re-do in Illustrator.</p><br><br>
+				   
 				</div>
 			</div>
-			<div class="row">
+			<div class="row">				
 				<div class="col-md-12 portfolio-image">
-					<a href="../assets/Wild West Ride_MHasinoff.png"><img src="../assets/Wild West Ride_MHasinoff.png" alt="Wild West Bike Race" class="center-block img-responsive" width=425/></a>
+					<div class="thumbnail portfolio-thumbnail">				
+							<img src="../assets/HexagonalBinning.jpg" alt="HexagonalBinning" class="center-block img-responsive" height = 200 >
+						</a>
+					</div>
+				</div>
+				<div class="col-md-12 portfolio-image">
+					<img src="../assets/DOCC_Regional_Atlas_2022_Cover.png" alt="DOC Atlas" class="center-block img-responsive" width=425/></a>
 				</div>
 			</div>
 		</div>

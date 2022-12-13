@@ -1,0 +1,117 @@
+/*a frame to neaten the map; and a map frame margin*/
+.map {
+	border: 3px solid #999;
+	margin: 10px 0 0 20px;
+	max-width: 500px;
+}
+
+.countries {
+	fill: #FFF;
+	stroke: #CCC;
+	stroke-width: 2px;
+}
+
+/*visually highlight the color change between enumeration units by adding a solid border to the enumeration units (regions class)*/
+.regions {
+	stroke: #000;
+	stroke-width: 0.5px;
+	stroke-linecap: round;
+}
+
+.gratBackground {
+	fill: #D5E3FF;
+}
+
+.gratLines {
+	fill: none;
+	stroke: #999;
+	stroke-width: 1px;
+}
+
+/*chart frame styles*/
+.chart {
+	float: right;
+	margin: 7px 20px 0 0;
+}
+
+/*a different chart frame style
+.chart {
+    background-color: rgba(128,128,128,.2);
+    border: medium solid #999;
+    float: right;
+    margin: 10px 20px 0 0;
+}
+*/
+
+
+.chartTitle {
+	font-family: sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.chartBackground {
+	fill: rgba(128,128,128,.2);
+}
+
+.chartFrame {
+	fill: none;
+	stroke: #999;
+	stroke-width: 3px;
+	shape-rendering: crispEdges;
+}
+
+/*.numbers {
+	fill: white;
+	font-family: sans-serif;
+}*/
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #999;
+	stroke-width: 1px;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 0.8em;
+	fill: #999;
+}
+
+.dropdown {
+	position: absolute; /*positions the dropdown <select> element absolutely so that it is not affected by other elements on the page */
+	top: 200px; /*use top and left styles to position it down and to the right of the top-left corner of the page */
+	left: 40px;
+	z-index: 10; /* Adding a z-index of 10 ensures that it floats to the top of all other elements on the page */
+	font-family: sans-serif;
+	font-size: 1em; /* */
+	font-weight: bold; 
+	padding: 2px; 
+	border: 1px solid #999; /* a border and box-shadow make the <select> element visually float above the map, making it more obvious to the user */
+	box-shadow: 2px 2px 4px #999;
+}
+
+/* The option style simply reduces the text of the <option> elements in the dropdown menu to normal weight so they are not emboldened by the font-weight of the <select> element */
+option {
+	font-weight: normal;
+}
+
+.infolabel {
+	position: absolute;
+	height: 50px;
+	min-width: 100px;
+	color: #fff;
+	background-color: #000;
+	border: solid thin #fff;
+	padding: 5px 10px;
+	top: -75px; /* depending on your browser speed, you may notice that sometimes the label is added to the page before the position styles take affect, causing it to flash briefly in the corner. we can sort of sweep it under the rug by assigning the label a default position that moves it off the page entirely  */
+}
+
+.infolabel h1 {
+	margin: 0 20px 0 0;
+	padding: 0;
+	display: inline-block;
+	line-height: 1em;
+}

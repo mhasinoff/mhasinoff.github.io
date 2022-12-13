@@ -1,0 +1,84 @@
+<!-- Index.html MAP 3 - Dollar Chains Final Project, April 2021-->
+<!-- SET TO RUN COUNTY MAP (js/MAP3_COUNTY_main.js), BUT SCRIPT FOR STATE VERSION IS INLCUDED BUT COMMENTED OUT AT END-->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Map3State</title>
+
+        <!--leaflet tutorial stylesheet reference-->
+         <link rel="stylesheet"             href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin=""/>
+        
+		<!--put your external stylesheet links here-->
+        <link rel="stylesheet" href="css/leaflet.css"> 
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/map3style.css">
+        <link rel="stylesheet" href="../../css/style.css"> 
+       
+
+	</head>
+
+	<body>
+        <div class="container-fluid p-0">
+			<nav class="topnav"  id="myTopnav">
+				<a href="../../index.html">Dollar Stores</a>
+				<a href="#map2">Map 2</a>
+				<!-- <div class="dropdown">
+					<button class="dropbtn">Map 3
+						<i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+						<a href="#">State Level</a>
+						<a href="#">County Level</a>
+					</div>
+				</div> -->
+				<a href="maps\map3\map3s.html"class="active">Map 3: State Level</a>
+				<a href="map3c.html">Map 3: County Level</a>
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+			</nav>
+			</div>
+		</div>
+		<!--put your initial page content here-->
+        <div id="map"></div>
+        
+    <div class="btn-group">
+        <button type="button" id="lowIncome" class="btn btn">Low-income Households</button>
+        <button type="button" id="carFree" class="btn btn">Car-Free Households</button>
+        <button type="button" id="obese" class="btn btn">Obese Population</button>
+        <button type="button" id="diabetes" class="btn btn">Diabetic Population</button>
+        <button type="button" id="combinedScore" class="btn btn">Combined Score</button>
+    </div>        
+            
+        <div>
+
+            <h5>Circles represent number of dollar stores within the blue highlighted area. Hover over a circle to activate the highlight.  Click the circle to zoom into that area for greater detail.</h5>
+
+        </div>
+        
+
+        <!--leaflet script reference--> 
+         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+        
+		<!--put your external script links here-->
+        <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+        <script type="text/javascript" src="lib/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="lib/leaflet-src.js"></script>
+        <script type="text/javascript" src="lib/leaflet.markercluster-src.js"></script>
+        <script src="data/allStorePoints.js"></script>
+        
+        
+        <!--THIS PAGE IS EXACTLY THE SAME FOR MAP3-STATE & MAP3-COUNTY EXCEPT FOR THIS LINE; COMMENTED OUT THE STATE ONE BELOW-->
+        
+        <script type="text/javascript" src="js/MAP3_STATE_main.js"></script>
+        
+        <!-- <script type="text/javascript" src="js/MAP3_COUNTY_main.js"></script> -->
+
+	</body>
+</html>

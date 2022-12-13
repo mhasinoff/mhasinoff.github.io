@@ -1,0 +1,83 @@
+<!-- Index.html MAP 3 - State - Dollar Chains Final Project, April 2021-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Underserved: State Level</title>
+
+        <!--leaflet tutorial stylesheet reference-->
+         <link rel="stylesheet"             href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin=""/>
+        
+		<!--put your external stylesheet links here-->
+        <link rel="stylesheet" href="css/leaflet.css"> 
+        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/map3style.css">
+        <link rel="stylesheet" href="../../css/L.Control.OpenCageData.Search.min.css">
+         
+       
+	</head>
+
+	<body>
+        <div class="container-fluid p-0">
+			<nav class="topnav"  id="myTopnav">
+				<a href="../../index.html">Dollar Stores in Metro Areas</a>
+				<a href="../map2/map2.html">Dollar Store Growth</a>
+				<a href="map3s.html"class="active">Underserved: State Level</a>
+				<a href="map3c.html">Underserved: County Level</a>
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+			</nav>
+			</div>
+		</div>
+		<!--put your initial page content here-->
+        <div id="map"></div>
+        
+        <div class="btn-group">
+            <button type="button" id="lowIncome" title="Low Income and >1 mile from Grocery Store" class="btn btn">Low-Income/Access</button>
+            <button type="button" id="carFree" title="Low Income, Car-Free and >1 mile from Grocery Store" class="btn btn">Car-Free, Low-Income/Access</button>
+            <button type="button" id="obese" title="% Adult Obesity" class="btn btn">Obese Population</button>
+            <button type="button" id="diabetes" title="% Diabetic" class="btn btn">Diabetic Population</button>
+            <button type="button" id="combinedScore" class="btn btn">Combined Score</button>
+        </div>        
+            
+        <div>
+            <h5 style="margin-inline: 20px;">Circles represent number of dollar stores within the blue highlighted area. Hover over a circle to activate the highlight.  Click the circle to zoom into that area for greater detail.</h5>
+            <p style="margin-inline: 20px;"><strong>Button Descriptions: </strong><br>
+                <i>Low-Income Households</i>: Low-income and greater than one mile from a grocery store<br>
+                <i>Car-Free Households</i>: Low-income, car-free, and greather than one mile from a grocery store<br>
+                <i>Obese Population</i>: Percentage of adult obesity<br>
+                <i>Diabetic Population</i>: Percentage of diabetic<br>
+                <i>Combined Score</i>: A weighted combination of low-income (70%), car-free (10%), obese (10%), and diabetic (10%) </p>
+        </div>
+        
+
+        <!--leaflet script reference--> 
+         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+        
+		<!--put your external script links here-->
+        <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+        <script type="text/javascript" src="lib/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="lib/leaflet-src.js"></script>
+        <script type="text/javascript" src="lib/leaflet.markercluster.js"></script>
+        <script type="text/javascript" src="../../lib/leaflet/L.Control.OpenCageSearch.min.js"></script>
+		<script type="text/javascript" src="../../lib/leaflet/easy-button.js"></script>
+        <script src="data/allStorePoints.js"></script>
+
+        
+        
+        <!--THIS PAGE IS EXACTLY THE SAME FOR MAP3-STATE & MAP3-COUNTY EXCEPT FOR THIS LINE; COMMENTED OUT THE STATE ONE BELOW-->
+        
+        <script type="text/javascript" src="js/MAP3_STATE_main.js"></script>
+        
+        <!-- <script type="text/javascript" src="js/MAP3_COUNTY_main.js"></script> -->
+
+	</body>
+</html>

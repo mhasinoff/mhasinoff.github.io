@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Unincorporated Communities in Wisconsin</title>
+
+		<!--external stylesheet-->
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="lib/leaflet/leaflet.css">
+		<link rel="stylesheet" href="css/L.Control.OpenCageData.Search.min.css">
+		<link rel="stylesheet" href="lib/leaflet.markercluster/MarkerCluster.css">
+		<link rel="stylesheet" href="lib/leaflet.markercluster/MarkerCluster.Default.css">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+
+		<div id="loadingScreen">
+			<div id="spinner"></div>
+		</div>
+
+		<!-- splash screen -->
+		<div class="modal fade" id="splash-screen" tabindex="-1" role="dialog" aria-labelledby="splash-screen" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: none; text-align: center">
+                        <h5 class="col-12 modal-title" id="modalTitle">Discover Unincorporated Communities Along Your Route</h5>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 0rem; padding-top: 0.25rem">
+                    	<p>Heading out on a road trip and going to check out some unincorporated communities along the way?</p>
+						<p>You're going to need a mapping tool that looks a lot like <a href = "https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/fleet-routing/">this</a> because it's more than likely that if there is a Phantom along your route, you will probably unknowingly drive right by it because there will be nothing there to tip you off that, at some point in the past, a community used to be there! Unfortunately, my coding skills aren't quite there yet, so come back another time and hopefully it will be ready to go!</p>                 	
+						
+                    </div>
+                    <div class="modal-footer" style="border-top: none; justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- navbar -->
+		<div class="container-fluid p-0">
+			<nav class="topnav"  id="myTopnav">
+				<a href="index.html" >Exploring Unincorporated Communities in Wisconsin</a>
+				<a href="UnincYourArea.html" >Try It! Unincs In Your Area</a>
+				<a href="UnincsYourRoute.html" class="active">Try It! Unincs On Your Route</a>
+				<a href="Methodology.html">Behind The Scenes</a>	
+				
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+			</nav>
+		</div>
+		
+		<!-- map container -->
+		<div id = "mapid"></div>
+		
+		<!-- info box at bottom of page-->
+		<!-- <div id = "mapinfotext" style="margin-inline: 20px;">
+			<h2>Dollar Store Growth in Major Metropolitan Areas During the Great Recession (2008-2017)</h2>
+			<p>This map illustrates the increase in the number of Dollar General, Dollar Tree and Family Dollar stores in 45 major metropolitan areas during the great recession 
+			of 2008-17. Please note that Boston had no stores in 2008. So, for Boston only, the percent increase data is compared to 2009 data (not 2008, as stated in the popup box). </p>
+		</div> -->
+
+		<!--libraries-->
+		
+		<!-- Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */ -->
+		<script>
+			/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+			function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			} 
+		</script>
+
+		<script type="text/javascript" src="lib/jquery-3.4.1.js"></script>
+
+		<script type="text/javascript" src="lib/leaflet/leaflet-src.js"></script>
+		<script type="text/javascript" src="lib/leaflet/L.Control.OpenCageSearch.min.js"></script>
+		<script type="text/javascript" src="lib/leaflet/easy-button.js"></script>
+		<script type="text/javascript" src="lib/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+
+		<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="lib/d3.js"></script>
+		<script type="text/javascript" src="lib/d3-selection-multi.min.js"></script>
+
+		<script type="text/javascript" src="lib/topojson.min.js"></script>
+
+		<script type="text/javascript" src="lib/simple-statistics.min.js"></script>
+		<script type="text/javascript" src ="js/verifiedgeojson.js"></script>
+		<script type="text/javascript" src ="js/phantomsgeojson.js"></script>
+		<script type="text/javascript" src ="js/phantoms2exploregeojson.js"></script>
+		<script type="text/javascript" src ="js/mikes_likely_phantoms.js"></script>
+
+		<!--main script-->
+		<script type="text/javascript" src="js/main_phantom_4.js"></script>
+
+	</body>
+    
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Unincorporated Communities in Wisconsin</title>
+
+		<!--external stylesheet-->
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="lib/leaflet/leaflet.css">
+		<link rel="stylesheet" href="css/L.Control.OpenCageData.Search.min.css">
+		<link rel="stylesheet" href="lib/leaflet.markercluster/MarkerCluster.css">
+		<link rel="stylesheet" href="lib/leaflet.markercluster/MarkerCluster.Default.css">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+
+		<div id="loadingScreen">
+			<div id="spinner"></div>
+		</div>
+
+		<!-- splash screen -->
+		<div class="modal fade" id="splash-screen" tabindex="-1" role="dialog" aria-labelledby="splash-screen" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: none; text-align: center">
+                        <h5 class="col-12 modal-title" id="modalTitle">Methodology For Finding Phantom Communities</h5>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 0rem; padding-top: 0.25rem">
+                    	<p>So, how did I find the 58 likely Phantoms as described in the Splash/Info Page? I investigated several different parameters to "weed" Phantoms out from all the data sources (see Future Study below). Things became complicated. In the end, the methodology I used was to determine if, within a quarter mile radius of their lat/long point locations, any of the possible Phantoms (as accessed from the GNIS) existed on land that was NOT residential. This was a proxy for areas where there is no remaining residential population and therefore no existant community. Here's how I did it using ArcGIS Pro:</p>
+
+                    	<ul>
+							<li>Two layers were used as a starting point</li>
+								<ul>
+									<li>A point layer of unclassified, unincorporated communities with lat/lon as on record with the GNIS</li>
+									<li>The Wisconsin Statewide Parcel Map as available through the WI State Cartographer's Office</li>							
+								</ul>
+							<li>A 0.25 mile buffer was created around the GNIS-provided lat/lon for possible Phantom</li>
+							<li>Parcels were selected that were 1) in whole or in part, classified as residential (i.e. could have been residential, residential and commercial, residential and agricultural, etc.); and 2) had an assessed value of improvements >$800</li>
+							<li>The intersection of the selected parcels and the buffer was determined</li>
+							<li>A spatial join was made with the buffered points and the resultant layer from the intersection. The spatial join creates a Join Count which reflects the number of parcels within the buffer that have a residential classification. Therefore, those records with a Join Count of zero have no residentially classified parcels and are likely to be Phantoms</li>
+							<li>Upon visual inspection of the satellite imagery of the 58 results, this method appeared to be quite accurate. </li>
+
+
+
+
+						<p>Future Study:<br>
+							- ground truth, satellite imagery, street-view (lower hanging fruit)
+ 							-	Remove those unincs that are close (how close??) to more urban areas<br>
+							-	Churches<br>
+							-	Cemeteries<br>
+							-	Fire Stations<br>
+							-	Fire Stations<br>
+							-	What proportion of area of residential parcel compared to the area of the buffer?<br>
+							
+						</p>
+                    	<p>Created by Michael Hasinoff for Geography 778: Practicum in GIS Development, UW-Madison, Fall 2022</p>
+                    </div>
+                    <div class="modal-footer" style="border-top: none; justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- navbar -->
+		<div class="container-fluid p-0">
+			<nav class="topnav"  id="myTopnav">
+				<a href="index.html" >Exploring Unincorporated Communities in Wisconsin</a>
+				<a href="UnincYourArea.html">Unincs In Your Area</a>
+				<a href="UnincsYourRoute.html">Unincs On Your Route</a>
+				<a href="Methodology.html" class="active">Behind The Scenes</a>
+				<!-- <a href="maps\map3\map3c.html">Underserved: County Level</a> -->
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+			</nav>
+		</div>
+		
+		<!-- map container -->
+		<div id = "mapid"></div>
+		
+		<!-- info box at bottom of page-->
+		<!-- <div id = "mapinfotext" style="margin-inline: 20px;">
+			<h2>Dollar Store Growth in Major Metropolitan Areas During the Great Recession (2008-2017)</h2>
+			<p>This map illustrates the increase in the number of Dollar General, Dollar Tree and Family Dollar stores in 45 major metropolitan areas during the great recession 
+			of 2008-17. Please note that Boston had no stores in 2008. So, for Boston only, the percent increase data is compared to 2009 data (not 2008, as stated in the popup box). </p>
+		</div> -->
+
+		<!--libraries-->
+		
+		<!-- Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */ -->
+		<script>
+			/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+			function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			} 
+		</script>
+
+		<script type="text/javascript" src="lib/jquery-3.4.1.js"></script>
+
+		<script type="text/javascript" src="lib/leaflet/leaflet-src.js"></script>
+		<script type="text/javascript" src="lib/leaflet/L.Control.OpenCageSearch.min.js"></script>
+		<script type="text/javascript" src="lib/leaflet/easy-button.js"></script>
+		<script type="text/javascript" src="lib/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+
+		<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="lib/d3.js"></script>
+		<script type="text/javascript" src="lib/d3-selection-multi.min.js"></script>
+
+		<script type="text/javascript" src="lib/topojson.min.js"></script>
+
+		<script type="text/javascript" src="lib/simple-statistics.min.js"></script>
+		<script type="text/javascript" src ="js/verifiedgeojson.js"></script>
+		<script type="text/javascript" src ="js/phantomsgeojson.js"></script>
+		<script type="text/javascript" src ="js/phantoms2exploregeojson.js"></script>
+		<script type="text/javascript" src ="js/mikes_likely_phantoms.js"></script>
+
+		<!--main script-->
+		<script type="text/javascript" src="js/main_phantom_4.js"></script>
+
+	</body>
+    
+</html>

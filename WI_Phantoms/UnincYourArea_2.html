@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GeoJSON Example</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<style>
+#wrapper {
+margin: 0 auto;
+width: 100%;
+}
+
+#panel{
+float: left;
+width: 100%;
+height:50px;
+background-color: #175B81;
+color:white;
+}
+
+#map {
+float: left;
+width: 80%;
+height:600px;
+}
+
+.sidebar {
+float: left;
+width: 20%;
+height:600px;
+background-color: white;
+color: #175B81;
+}
+
+#footer {
+float: left;
+background-color: #175B81;
+color: white;
+width: 100%;
+height:25px
+}
+
+.text-labels     {
+font-weight: bold;
+color:#006400;
+font-family: "Arial Black";
+font-size: 20px ;
+line-height:25px;
+text-align:center;
+}
+
+table, th, td 
+{
+	margin:0px 5px;
+	/*border:solid 1px #333; */
+	padding:2px 4px;
+	font:10px Verdana;
+}
+th {
+	font-size:14px;
+	font-weight:bold
+}
+td {
+	font-size:14px;
+	font-weight:normal
+}
+tr {
+	background: white;
+}
+
+tbody  tr:hover {
+	background: yellow;
+}
+table {
+	border-collapse: collapse;
+}  
+.table a
+{
+display:block;
+text-decoration:none;
+}
+#f1{
+font-weight:bold
+}
+.p2 {
+font-size: 24px;
+font-weight:bold;
+position: relative;
+top: 11px;
+left: 20px;
+display:inline-block;
+}
+#txtboxes{
+font-weight:bold;
+display:inline-block;
+text-align: right;
+margin: auto;
+width: 95%;
+padding: 10px;
+}
+
+#ckboxes {	/* pushes checkbox a little from sidebar left edge */
+padding-left: 10px;
+}
+
+
+img {  /* Images are all different sizes, this makes them the same */
+width:100px;
+height:100px;
+object-fit:scale-down;
+}
+
+.box{
+	width:15px;
+	height:15px;
+	border-radius:25px; /* makes a circle from a box */
+		display: inline-block;
+	}
+	
+.red{
+	background:red;
+} 
+.green{
+	background:green;
+}
+.blue{
+	background:blue;
+} 
+.orange{
+	background:orange;
+}
+#ball{	/* pushes the circle right 80 px. */
+	padding-left: 80px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="wrapper">
+<div id="panel">
+	<div id="txtboxes">
+
+	Select on click within 
+			<select id="miles">
+				<option value='50'>50 Miles</option>
+				<option value='100' >100 Mile</option>
+				<option value='150'>150 Miles</option>
+				<option value='200'>200 Miles</option>
+				<option value='300'>300 Miles</option>
+				<option value='500'>500 Miles</option>
+			</select>
+	</div> 
+</div>
+<div id="map">  </div>
+
+
+
+
+
+<!-- style div with scrollbar if needed   -->
+<div class="sidebar" style="overflow: scroll;">
+<p style="text-align:center; font-size: 24px; color:#175B81; font-weight:bold; "> Baseball/Football</p>	
+
+				<div id="ckboxes">
+				<label class="container"> <!-- need a name property for check/uncheck funtion to work -->
+					<input type="checkbox"  id="bball" name="bball" checked><b>Baseball</b><br>
+					<div id="ball">
+						<div class="box red" ></div> American League<br>
+						<div class="box blue" ></div> National League
+					</div>
+				</label>
+				<label class="container">
+					<input type="checkbox"  id="foot" name="foot" ><b>Football </b><br>
+					<div id="ball">
+						<div class="box orange" ></div> AFC<br>
+						<div class="box green" ></div> NFC
+					</div>
+				</label>
+			</div>
+
+
+
+	</br><hr>
+
+		<table  id="myTable" style="width:90%; ">	</table>
+</div>
+
+
+
+<div id="footer">  </div>
+
+</div>
+<script>
+var url1 = 'baseball.json';  
+var url2 = 'football.json';  
+
+var theMarker;
+var theCircle;
+var geojsonLayer;
+
+var map = L.map('map').setView([39.0, -98.26], 4); 
+
+var osm = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ 
+			attribution: 'Â© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+
+// Set function for color ramp
+function getColor(league){
+	return league == 'NL' ? 'blue' :
+			league == 'AL' ? 'red' :
+							'white';
+		}	
+
+// Set style function that sets fill color property
+function style(feature) {
+	return {
+		fillColor: setColor(feature.properties.League),
+		fillOpacity: 0.5,
+		weight: 2,
+		opacity: 1,
+		color: '#ffffff',
+		dashArray: '3'
+	};
+}
+/*	var highlight = {
+	'fillColor': 'yellow',
+	'weight': 2,
+	'opacity': 1
+};
+*/
+
+	
+// layer 1
+
+
+	var bbTeam = L.geoJson(null, {
+		
+		pointToLayer: function(feature, latlng) {
+	
+			return L.circleMarker(latlng, {
+			radius:6,
+			opacity: .5,
+			//color: "#000",
+			color:getColor(feature.properties.League),
+			fillColor:  getColor(feature.properties.League),
+			fillOpacity: 0.8
+
+			});  //.bindTooltip(feature.properties.Name);
+		},
+		
+			onEachFeature: function (feature, layer) {
+				layer._leaflet_id = feature.properties.Team;
+
+			
+				var popupContent = "<p>The <b>" +
+				feature.properties.Team + "</b> play here,</br> They are in the " +
+				feature.properties.League + "</br>" +
+				'<a href="'+ feature.properties.Website +'" target="_blank">Website</a></p>' ;
+						
+				if (feature.properties && feature.properties.popupContent) {
+					popupContent += feature.properties.popupContent;
+				}
+					layer.bindPopup(popupContent);
+
+			}
+			
+			});
+	
+$.getJSON(url1, function(data) {			
+	bbTeam.addData(data).addTo(map);
+});	
+	
+//END Layer1
+/// Layer 2
+	function getColor2(league){
+	return league == 'NFC' ? 'green' :
+			league == 'AFC' ? 'orange' :
+							'white';
+		}	
+
+// Set style function that sets fill color property
+function style2(feature) {
+	return {
+		fillColor: setColor(feature.properties.League),
+		fillOpacity: 0.5,
+		weight: 2,
+		opacity: 1,
+		color: '#ffffff',
+		dashArray: '3'
+	};
+}	
+// Get GeoJSON data and create features.
+
+
+	var fbTeam = L.geoJson(null, {
+		
+		pointToLayer: function(feature, latlng) {
+	
+			return L.circleMarker(latlng, {
+			radius:6,
+			opacity: .5,
+			//color: "#000",
+			color:getColor2(feature.properties.League),
+			fillColor:  getColor2(feature.properties.League),
+			fillOpacity: 0.8
+
+			});  //.bindTooltip(feature.properties.Name);
+		},
+		
+			onEachFeature: function (feature, layer) {
+				layer._leaflet_id = feature.properties.Team;
+
+			
+				var popupContent = "<p>The <b>" +
+				feature.properties.Team + "</b> play here,</br> They are in the " +
+				feature.properties.League + "</br>" +
+				'<a href="'+ feature.properties.Website +'" target="_blank">Website</a></p>' ;
+						
+				if (feature.properties && feature.properties.popupContent) {
+					popupContent += feature.properties.popupContent;
+				}
+					layer.bindPopup(popupContent);
+			
+
+			}
+			});
+	
+$.getJSON(url2, function(data2) {			
+	fbTeam.addData(data2);
+});		
+
+//;layer 2		
+
+//////////////////////
+
+map.on('click',function(e){  
+	lat = e.latlng.lat;
+	lon = e.latlng.lng;
+	ProcessClick(lat,lon)	
+});
+
+function ProcessClick(lat,lon){
+console.log("You clicked the map at LAT: "+ lat+" and LONG: "+lon );
+
+	//Clear existing marker, circle, and selected points if selecting new points
+	if (theCircle != undefined) {
+		map.removeLayer(theCircle);
+	};
+	if (theMarker != undefined) {
+			map.removeLayer(theMarker);
+	};
+	if (geojsonLayer != undefined) {
+			map.removeLayer(geojsonLayer);
+	};
+	
+//Add a marker to show where you clicked.
+	theMarker = L.marker([lat,lon]).addTo(map);  
+SelectPoints(lat,lon);
+};
+
+var selPts = [];
+
+function SelectPoints(lat,lon){
+var dist = document.getElementById("miles").value;
+
+xy = [lat,lon];  //center point of circle
+
+var theRadius = parseInt(dist) * 1609.34  //1609.34 meters in a mile 
+//dist is a string so it's convered to an Interger.
+
+selPts.length =0;  //Reset the array if selecting new points
+
+bbTeam.eachLayer(function (layer) {
+	// Lat, long of current point as it loops through.
+	layer_lat_long = layer.getLatLng();
+	
+	// Distance from our circle marker To current point in meters
+	distance_from_centerPoint = layer_lat_long.distanceTo(xy);
+	
+	// See if meters is within radius, add the to array
+	if (distance_from_centerPoint <= theRadius && $('#bball').is(":checked")) {
+			selPts.push(layer.feature);  
+	}
+})
+
+fbTeam.eachLayer(function (layer) {
+	// Lat, long of current point as it loops through.
+	layer_lat_long = layer.getLatLng();
+	
+	// Distance from our circle marker To current point in meters
+	distance_from_centerPoint = layer_lat_long.distanceTo(xy);
+	
+	// See if meters is within radius, add the to array
+	if (distance_from_centerPoint <= theRadius&& $('#foot').is(":checked")) {
+			selPts.push(layer.feature);  
+	}
+})
+
+
+// draw circle to see the selection area
+theCircle = L.circle(xy, theRadius , {   /// Number is in Meters
+	color: 'orange',
+	fillOpacity: 0,
+	opacity: 1
+}).addTo(map);
+
+//Symbolize the Selected Points
+		geojsonLayer = L.geoJson(selPts, {
+		
+		pointToLayer: function(feature, latlng) {
+			return L.circleMarker(latlng, {
+			radius: 4, //expressed in pixels circle size
+			color: "yellow", 
+			stroke: true,
+			weight: 7,		//outline width  increased width to look like a filled circle.
+			fillOpcaity: 1
+			});
+			}
+	});
+	//Add selected points back into map as green circles.
+	map.addLayer(geojsonLayer);
+	
+	//Take array of features and make a GeoJSON feature collection 
+	var GeoJS = { type: "FeatureCollection",  features: selPts   };
+	
+	//Show number of selected features.
+	console.log(GeoJS.features.length +" Selected features");
+	
+		// show selected GEOJSON data in console
+	console.log(JSON.stringify(GeoJS));
+
+//////////////////////////////////////////
+
+	/// Putting the selected team name in the table
+
+	//Clean up prior records
+	$("#myTable tr").remove(); 
+	
+	var table = document.getElementById("myTable");
+		//Add the header row.
+	var row = table.insertRow(-1);
+	var headerCell = document.createElement("th");
+	headerCell.innerHTML = "Team";  //Fieldname
+	row.appendChild(headerCell);
+	
+	//Add the data rows. 
+	//console.log(selPts);		
+	for (var i = 0; i < selPts.length; i++) {
+	
+		row = table.insertRow(-1);
+		var cell = row.insertCell(-1);
+		
+		cell.innerHTML = selPts[i].properties.Team;  
+		
+	}
+		//Get the Team name in the cell.
+		$('#myTable tr').click(function(x) {
+		theTeam = (this.getElementsByTagName("td").item(0)).innerHTML;
+		console.log(theTeam);
+		map._layers[theTeam].fire('click');
+		var coords = map._layers[theTeam]._latlng;
+		console.log(coords);
+		map.setView(coords, 12);
+		});
+	
+
+};	//end of SelectPoints function
+document.querySelector("input[name=bball]").addEventListener('change', function() {
+			if(this.checked) map.addLayer(bbTeam)
+				else map.removeLayer(bbTeam)
+			})
+			
+document.querySelector("input[name=foot]").addEventListener('change', function() {
+			if(this.checked) map.addLayer(fbTeam)
+				else map.removeLayer(fbTeam)
+			})
+
+/////////////////////Layer Control  /////////////////////////////////////////////////
+
+		var baseMaps = {
+			'Open StreetMap': osm
+		};
+
+		var overlayMaps = {
+			"Baseball": bbTeam,
+			"Football": fbTeam
+
+		};
+
+//         L.control.layers(baseMaps, overlayMaps).addTo(map);
+</script>
+
+</body>
+</html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Unincorporated Communities in Wisconsin</title>
+
+<!--external stylesheet-->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="lib/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/L.Control.OpenCageData.Search.min.css">
+<link rel="stylesheet" href="lib/leaflet.markercluster/MarkerCluster.css">
+<link rel="stylesheet" href="lib/leaflet.markercluster/MarkerCluster.Default.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="loadingScreen">
+<div id="spinner"></div>
+</div>
+
+<!-- splash screen -->
+<div class="modal fade" id="splash-screen" tabindex="-1" role="dialog" aria-labelledby="splash-screen" aria-hidden="true" data-backdrop="static">
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+<div class="modal-content">
+	<div class="modal-header" style="border-bottom: none; text-align: center">
+		<h5 class="col-12 modal-title" id="modalTitle">Discover Unincorporated Communities In Your Area</h5>
+	</div>
+	<div class="modal-body" style="padding-bottom: 0rem; padding-top: 0.25rem">
+		<p>Looking to help us find some unincorporated communities in your area? Or perhaps a Phantom?</p>
+		<p>Eventually there will be a tool here to help you get a map and a list of unincorporated communities in your area.</p>
+		<p>For a sneak peak of what it will look like, check <a href="http://www.gistechsolutions.com/leaflet/DEMO/sports/">this</a> out.</p>                  	
+		
+	</div>
+	<div class="modal-footer" style="border-top: none; justify-content: flex-end;">
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	</div>
+</div>
+</div>
+</div>
+
+<!-- navbar -->
+<div class="container-fluid p-0">
+<nav class="topnav"  id="myTopnav">
+<a href="index.html" >Exploring Unincorporated Communities in Wisconsin</a>
+<a href="UnincYourArea.html"class="active">Try It! Unincs In Your Area</a>
+<a href="UnincsYourRoute.html">Try It! Unincs On Your Route</a>
+<a href="Methodology.html">Behind The Scenes</a>
+<!-- <a href="maps\map3\map3c.html">Underserved: County Level</a> -->
+<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</nav>
+</div>
+
+<!-- map container -->
+<div id = "mapid"></div>
+
+<!-- info box at bottom of page-->
+<!-- <div id = "mapinfotext" style="margin-inline: 20px;">
+<h2>Dollar Store Growth in Major Metropolitan Areas During the Great Recession (2008-2017)</h2>
+<p>This map illustrates the increase in the number of Dollar General, Dollar Tree and Family Dollar stores in 45 major metropolitan areas during the great recession 
+of 2008-17. Please note that Boston had no stores in 2008. So, for Boston only, the percent increase data is compared to 2009 data (not 2008, as stated in the popup box). </p>
+</div> -->
+
+<!--libraries-->
+
+<!-- Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */ -->
+<script>
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+var x = document.getElementById("myTopnav");
+if (x.className === "topnav") {
+x.className += " responsive";
+} else {
+x.className = "topnav";
+}
+} 
+</script>
+
+<script type="text/javascript" src="lib/jquery-3.4.1.js"></script>
+
+<script type="text/javascript" src="lib/leaflet/leaflet-src.js"></script>
+<script type="text/javascript" src="lib/leaflet/L.Control.OpenCageSearch.min.js"></script>
+<script type="text/javascript" src="lib/leaflet/easy-button.js"></script>
+<script type="text/javascript" src="lib/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="lib/d3.js"></script>
+<script type="text/javascript" src="lib/d3-selection-multi.min.js"></script>
+
+<script type="text/javascript" src="lib/topojson.min.js"></script>
+
+<script type="text/javascript" src="lib/simple-statistics.min.js"></script>
+<script type="text/javascript" src ="js/verifiedgeojson.js"></script>
+<script type="text/javascript" src ="js/phantomsgeojson.js"></script>
+<script type="text/javascript" src ="js/phantoms2exploregeojson.js"></script>
+<script type="text/javascript" src ="js/mikes_likely_phantoms.js"></script>
+
+<!--main script-->
+<script type="text/javascript" src="js/main_phantom_4.js"></script>
+
+
+</body>
+
+</html>

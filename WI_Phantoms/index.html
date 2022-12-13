@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Wisconsin Phantoms</title>
+
+		<!--external stylesheet-->
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="lib/leaflet/leaflet.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">		
+		<link rel="stylesheet" href="css/L.Control.OpenCageData.Search.min.css">		
+		<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+
+	</head>
+
+	<body>
+
+		<div id="loadingScreen">
+			<div id="spinner"></div>
+		</div>
+
+		<!-- splash screen -->
+		<div class="modal fade" id="splash-screen" tabindex="-1" role="dialog" aria-labelledby="splash-screen" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: none; text-align: center">
+                        <h5 class="col-12 modal-title" id="modalTitle">Exploring Unincorporated Communities in Wisconsin</h5>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 0rem; padding-top: 0.25rem">
+                    	<p>This web application is the result of a combination of projects which have focused on unincorporated communities in Wisconsin. Beginning in 2010, the Wisconsin State Cartographer’s Office (SCO) had the goal of mapping the state’s unincorporated communities (unincs) to document their location and existence. Using various mapping sources and ground truthing (lots of road trips that followed the scenic route!), SCO has mapped and placed over 1000 unincs into 3 classes: Verified unincs (existing), Other unincs (requiring further investigation) and Phantoms. This project has concentrated on Phantoms because, at some point in the past, they were historical, regional, potential, or even fictional locales that, correctly or not, came to be known as communities worthy of being put on a map. And yet, they no longer actually physically exist. There are approximately 125 Phantoms that have been verified as no longer existing. There are another 625 mapped places in Wisconsin that are categorized by the <a href="https://www.usgs.gov/tools/geographic-names-information-system-gnis">Geographic Names Information System (GNIS)</a> as populated places (=unincorporated communities) but have not yet been classified by SCO as one of the above three categories. 58 of these mapped places were determined to likely be Phantoms based on the "first cut" mapping methodology developed for this project. If you are interested in an explanation of the methodology used, please check <a href="Methodology.html">here</a>.</p>
+                    	
+						<p>Sources: <br>
+							<a href="https://maps.sco.wisc.edu/Parcels/">Wisconsin Statewide Parcel Map</a><br>
+							<a href="https://www.census.gov/">US Census Bureau</a><br>
+						</p>
+                    	<p>Created by Michael Hasinoff for Geography 778: Practicum in GIS Development, UW-Madison, Fall 2022</p>
+                    </div>
+                    <div class="modal-footer" style="border-top: none; justify-content: flex-end;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- navbar -->
+		<div class=""> <!-- container-fluid p-0 -->
+			<nav class="topnav"  id="myTopnav">
+				<a href="index.html" class="active">Exploring Unincorporated Communities in Wisconsin</a>
+				<a href="UnincYourArea.html">Try It! Unincs In Your Area</a>
+				<a href="UnincsYourRoute.html">Try It! Unincs On Your Route</a>
+				<a href="Methodology.html">Methodology</a>
+				<!-- <a href="maps\map3\map3c.html">Underserved: County Level</a> -->
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+			</nav>
+		</div>
+		
+		<!-- map container -->
+		<div id = "mapid"></div>		
+		
+		<!-- Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */ -->
+		<script>
+			/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+			function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			} 
+		</script>
+
+		<script type="text/javascript" src="lib/jquery-3.4.1.js"></script>
+		<script type="text/javascript" src="lib/leaflet/leaflet-src.js"></script>
+		<script type="text/javascript" src="lib/leaflet/L.Control.OpenCageSearch.min.js"></script>
+		<script type="text/javascript" src="lib/leaflet/easy-button.js"></script>
+		<script type="text/javascript" src="lib/leaflet.markercluster/leaflet.markercluster-src.js"></script>
+		<script type="text/javascript" src="lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="lib/d3.js"></script>
+		<script type="text/javascript" src="lib/d3-selection-multi.min.js"></script>
+		<script type="text/javascript" src="lib/topojson.min.js"></script>
+		<script type="text/javascript" src="lib/simple-statistics.min.js"></script>
+		<script type="text/javascript" src ="js/sampleGeoJSON.js"></script>
+		<script type="text/javascript" src ="js/verifiedgeojson.js"></script>
+		<script type="text/javascript" src ="js/phantomsgeojson.js"></script>
+		<script type="text/javascript" src ="js/phantoms2exploregeojson.js"></script>
+		<script type="text/javascript" src ="js/mikes_likely_phantoms.js"></script>
+		<script type="text/javascript" src ="js/historicals.js"></script>
+		<!--main script-->
+		<script type="text/javascript" src="js/main_phantom_4.js"></script>
+
+	</body>
+    
+</html>
